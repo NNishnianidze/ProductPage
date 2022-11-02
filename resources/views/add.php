@@ -10,13 +10,6 @@
 
         <div class="row g-3">
 
-            <div class="col-12" hidden>
-                <label for="sku" class="form-label">SKU</label>
-                <div class="input-group has-validation">
-                    <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU">
-                </div>
-            </div>
-
             <div class="col-12">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
