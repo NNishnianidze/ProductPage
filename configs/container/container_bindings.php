@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use App\App;
 use App\Config;
+use App\Controllers\HomeController;
 use App\DB;
+use App\Pegination;
 use App\Router;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
@@ -45,4 +47,6 @@ return [
         return $app;
     },
     DB::class                     => create(DB::class)->constructor(get(EntityManager::class)),
+    Pegination::class             => create(Pegination::class)->constructor(get(DB::class)),
+    HomeController::class         => create(HomeController::class)->constructor(get(Twig::class), get(DB::class), get(Pegination::class)),
 ];
