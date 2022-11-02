@@ -14,9 +14,6 @@
                 <label for="sku" class="form-label">SKU</label>
                 <div class="input-group has-validation">
                     <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU">
-                    <div class=" role=" alert">
-                        SKU is required.
-                    </div>
                 </div>
             </div>
 
