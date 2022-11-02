@@ -9,10 +9,15 @@ use Twig\Environment as Twig;
 
 abstract class AbstractIndexController
 {
-    public function index(Twig $twig, ?array $options = []): string
+    public function __construct(
+        private Twig $twig,
+    ) {
+    }
+
+    public function renderIndex(): string
     {
         if ($_SERVER['REQUEST_URI'] == '/') {
-            return $twig->render('index.php', ['requestUri' => $_SERVER['REQUEST_URI']]);
+            return $this->twig->render('index.php', ['requestUri' => $_SERVER['REQUEST_URI']]);
         };
         $_SERVER['REQUEST_URI'];
         $uri = explode('/', $_SERVER['REQUEST_URI']);
@@ -27,6 +32,6 @@ abstract class AbstractIndexController
 
         $options['requestUri'] = $_SERVER['REQUEST_URI'];
 
-        return $twig->render($view, $options);
+        return $this->twig->render($view, ['requestUri' => $_SERVER['REQUEST_URI']]);
     }
 }

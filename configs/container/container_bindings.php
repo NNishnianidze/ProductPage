@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use App\App;
 use App\Config;
+use App\DB;
 use App\Router;
-use App\Twig\TwigParserExtension;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 use Fullpipe\TwigWebpackExtension\WebpackExtension;
@@ -13,6 +13,7 @@ use Twig\Environment as Twig;
 use Twig\Loader\FilesystemLoader;
 
 use function DI\create;
+use function DI\get;
 
 return [
     Config::class                 => create(Config::class)->constructor(require CONFIG_PATH . '/app.php'),
@@ -43,4 +44,5 @@ return [
 
         return $app;
     },
+    DB::class                     => create(DB::class)->constructor(get(EntityManager::class)),
 ];

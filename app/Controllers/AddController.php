@@ -10,9 +10,13 @@ use Twig\Environment as Twig;
 
 class AddController extends AbstractIndexController
 {
-    public function __construct(private DB $db, private Twig $twig, private array $errors = [])
-    {
-        $this->db = new DB;
+    public function __construct(
+        private DB $db,
+        private Twig $twig,
+        private array $errors = [],
+        private HomeController $homeController
+    ) {
+        parent::__construct($this->twig);
     }
 
     public function addProduct(): string
@@ -24,7 +28,7 @@ class AddController extends AbstractIndexController
             return $this->twig->render('add.php', ['requestUri' => '/add', 'errors' => $this->errors]);
         }
 
-        return (new HomeController)->index($this->twig);
+        return $this->homeController->renderIndex();
     }
 
     public function validateDVD(array $postData, string $productType)

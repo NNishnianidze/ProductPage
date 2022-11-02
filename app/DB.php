@@ -8,16 +8,16 @@ use App\Entity\DVD;
 use App\Entity\Book;
 use App\Entity\Furniture;
 use App\Entity\Products;
+use Doctrine\ORM\EntityManager;
 
 class DB
 {
-    private $entityManager;
     private int $totalPages;
     private array $data;
 
-    public function __construct()
-    {
-        $this->entityManager = EM::getEntityManager();
+    public function __construct(
+        private EntityManager $entityManager,
+    ) {
     }
 
     public function createProduct(string $productType, array $postData)
@@ -68,17 +68,6 @@ class DB
 
         $this->entityManager->persist($furniture);
         $this->entityManager->flush();
-    }
-
-    public function getTotalPages(int $perPage): int
-    {
-        $query = $this->entityManager->createQuery('SELECT COUNT(p) FROM App\Entity\Products p');
-
-        $entries = $query->getOneOrNullResult();
-
-        $this->totalPages = (int) ceil($entries[1] / $perPage);
-
-        return $this->totalPages;
     }
 
     public function parseDB(int $start, int $end)

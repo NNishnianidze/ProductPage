@@ -5,10 +5,10 @@
 {% block content %}
 <script src="../js/index.js"></script>
 
-<form action="/" method="post" id="delete_form">
-    <div class="row row-cols-1 row-cols-md-4 mb-4 text-center">
+<form action="/delete" method="post" id="delete_form">
+    <div class="loader row row-cols-1 row-cols-md-4 mb-4 text-center">
         {% for product in products %}
-        <div class="col loader" id="{{ product.id|raw }}">
+        <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
                 <input name="{{ product.id|raw }}" value="{{ product.productType|raw }}" class="delete-checkbox position-absolute top-0 start-0 translate-middle form-check-input mt-4 ms-4 justify-content-start" type="checkbox">
 
@@ -36,6 +36,7 @@
         {% else %}
         <h1 class="card-title"><small class="text-muted fw-light">We will add Product Soon!</small></h1>
         {% endfor %}
+
     </div>
 </form>
 {% if totalPages > 1 %}
