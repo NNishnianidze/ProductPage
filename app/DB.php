@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManager;
 
 class DB
 {
-    private int $totalPages;
     private array $data;
 
     public function __construct(

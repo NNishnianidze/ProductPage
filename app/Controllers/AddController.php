@@ -11,10 +11,11 @@ use Twig\Environment as Twig;
 
 class AddController extends AbstractIndexController
 {
+    private array $errors = [];
+
     public function __construct(
         private DB $db,
         private Twig $twig,
-        private array $errors = [],
         private HomeController $homeController
     ) {
         parent::__construct($this->twig);
@@ -25,14 +26,16 @@ class AddController extends AbstractIndexController
         $productType = $_POST['productType'];
         $function = 'validate' . $productType;
 
-        if (!$this->$function($_POST, $productType)) {
+        $bool = $this->$function($_POST, $productType);
+
+        if (!$bool) {
             return $this->twig->render('add.php', ['requestUri' => '/add', 'errors' => $this->errors]);
         }
 
         return $this->homeController->renderIndex();
     }
 
-    public function validateDVD(array $postData, string $productType)
+    public function validateDVD(array $postData, string $productType): bool
     {
         $v = new Validator($postData);
 
@@ -52,9 +55,10 @@ class AddController extends AbstractIndexController
         $postData['price'] = (float) $postData['price'];
 
         $this->db->createProduct($productType, $postData);
+        return true;
     }
 
-    public function validateBook(array $postData, string $productType)
+    public function validateBook(array $postData, string $productType): bool
     {
         $v = new Validator($postData);
 
@@ -73,9 +77,10 @@ class AddController extends AbstractIndexController
         $postData['price'] = (float) $postData['price'];
 
         $this->db->createProduct($productType, $postData);
+        return true;
     }
 
-    public function validateFurniture(array $postData, string $productType)
+    public function validateFurniture(array $postData, string $productType): bool
     {
         $v = new Validator($postData);
 
@@ -99,5 +104,6 @@ class AddController extends AbstractIndexController
         $postData['price'] = (float) $postData['price'];
 
         $this->db->createProduct($productType, $postData);
+        return true;
     }
 }
