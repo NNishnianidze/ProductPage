@@ -5,18 +5,21 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\DB;
+use App\Pegination;
 use Valitron\Validator;
 use Twig\Environment as Twig;
 
 class AddController extends AbstractIndexController
 {
+    private HomeController $homeController;
+
     public function __construct(
         private DB $db,
         private Twig $twig,
         private array $errors = [],
-        private HomeController $homeController
     ) {
         parent::__construct($this->twig);
+        $this->homeController = new HomeController($this->twig, $this->db, new Pegination($this->db));
     }
 
     public function addProduct(): string
