@@ -1,7 +1,7 @@
 # ScandiTest
 ![](https://github.com/NNishnianidze/ScandiTest/blob/master/Gif.gif)
 
-# **All the Requests go through index.php located in public folder** #
+**All the Requests go through index.php located in public folder** 
 
 # Using #
 ## Backend ##
