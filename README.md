@@ -10,7 +10,7 @@
 * Doctrine
 
 ### Composer Packages ###
-* php/di - container
+* php/di - Container
 * symfony/console - Custom Console
 * vlucas/valitron - Form Validation 
 
