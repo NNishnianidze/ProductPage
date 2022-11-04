@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App;
 
 use App\Exceptions\RouteNotFoundException;
+use DI\Container;
 use Twig\Environment as Twig;
 
 class Router
 {
     private array $routes = [];
 
-    public function __construct(private Twig $twig)
+    public function __construct(private Twig $twig, private Container $container)
     {
     }
 
