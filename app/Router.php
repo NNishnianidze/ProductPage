@@ -5,19 +5,14 @@ declare(strict_types=1);
 namespace App;
 
 use App\Exceptions\RouteNotFoundException;
-use DI\Container;
 use Twig\Environment as Twig;
-
-use function PHPUnit\Framework\fileExists;
 
 class Router
 {
     private array $routes = [];
-    private Twig $twig;
 
-    public function __construct(private Container $container)
+    public function __construct(private Twig $twig)
     {
-        $this->twig = $container->get(Twig::class);
     }
 
     public function register(string $requestMethod, string $route, callable|array $action): self

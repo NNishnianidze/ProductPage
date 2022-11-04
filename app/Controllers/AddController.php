@@ -25,9 +25,9 @@ class AddController extends AbstractIndexController
         $productType = $_POST['productType'];
         $function = 'validate' . $productType;
 
-        $bool = $this->$function($_POST, $productType);
+        $validate = $this->$function($_POST, $productType);
 
-        if (!$bool) {
+        if (!$validate) {
             return $this->twig->render('add.php', ['requestUri' => '/add', 'errors' => $this->errors]);
         }
 

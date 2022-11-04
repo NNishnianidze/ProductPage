@@ -6,20 +6,23 @@ namespace Tests\Unit;
 
 use App\Exceptions\RouteNotFoundException;
 use App\Router;
-use App\Container;
 use PHPUnit\Framework\TestCase;
+use Twig\Environment as Twig;
 
 class RouterTest extends TestCase
 {
     private Router $router;
-    private Container $container;
+
+    public function __construct(private Twig $twig)
+    {
+        # code...
+    }
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->container = new Container();
-        $this->router = new Router($this->container);
+        $this->router = new Router($this->twig);
     }
 
     /** @test */
@@ -67,7 +70,7 @@ class RouterTest extends TestCase
     /** @test */
     public function there_are_no_routes_when_router_is_created(): void
     {
-        $this->assertEmpty((new Router($this->container))->routes());
+        $this->assertEmpty((new Router($this->twig))->routes());
     }
 
     /**

@@ -8,9 +8,9 @@ use App\Controllers\HomeController;
 use App\DB;
 use App\Pegination;
 use App\Router;
+use App\Twig\TwigParserExtension;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
-use Fullpipe\TwigWebpackExtension\WebpackExtension;
 use Twig\Environment as Twig;
 use Twig\Loader\FilesystemLoader;
 
@@ -31,7 +31,7 @@ return [
         $twig = new Twig($loader, ['cache' => STORAGE_PATH . '/cache/compilation_cache', 'auto_reload' => 1]);
 
         //Add Twwig Extension
-        $twig->addExtension(new WebpackExtension(PUBLIC_PATH . '/build/manifest.json', PUBLIC_PATH));
+        $twig->addExtension(new TwigParserExtension);
 
         return $twig;
     },

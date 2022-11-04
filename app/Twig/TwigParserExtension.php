@@ -18,5 +18,6 @@ class TwigParserExtension extends AbstractExtension
 
     public function getProducts()
     {
+        return 'Yes';
     }
 }

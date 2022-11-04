@@ -4,7 +4,6 @@
         "doctrine/dbal": "^3.4",
         "doctrine/migrations": "^3.5",
         "doctrine/orm": "^2.13",
-        "fullpipe/twig-webpack-extension": "^4.0",
         "php-di/php-di": "^6.4",
         "symfony/cache": "^6.1",
         "symfony/console": "^6.1",
