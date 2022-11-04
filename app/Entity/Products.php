@@ -27,8 +27,8 @@ use Doctrine\ORM\Mapping\Table;
 #[HasLifecycleCallbacks]
 class Products
 {
-    #[Id, Column(options: ['unsigned' => true]), GeneratedValue]
-    private int $id;
+    #[Id, Column(type: 'string')]
+    private string $id;
 
     #[Column]
     protected string $name;
@@ -52,7 +52,14 @@ class Products
         $this->furniture = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function setId(string $id): Products
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getId(): string
     {
         return $this->id;
     }

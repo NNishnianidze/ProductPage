@@ -11,6 +11,16 @@
         <div class="row g-3">
 
             <div class="col-12">
+                <label for="sku" class="form-label">SKU</label>
+                <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU" required>
+                {% if errors.sku[0] is defined %}
+                <div class="mt-2 alert alert-danger" role="alert">
+                    {{ errors.sku[0] }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-12">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
                 {% if errors.name[0] is defined %}
@@ -18,7 +28,6 @@
                     {{ errors.name[0] }}
                 </div>
                 {% endif %}
-
             </div>
 
             <div class="col-12">

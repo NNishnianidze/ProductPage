@@ -14,7 +14,7 @@
 
                 <div class="card-body">
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>{{ product.productType|raw }}{{ product.id|raw }}</li>
+                        <li>{{ product.id|raw }}</li>
                         <li>{{ product.name|raw }}</li>
                         <li>{{ product.price|raw }}$</li>
 

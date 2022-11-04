@@ -30,6 +30,7 @@ class DB
         $dvd = new DVD;
 
         $dvd
+            ->setId($postData['sku'])
             ->setName($postData['name'])
             ->setProductType('DVD')
             ->setPrice($postData['price'])
@@ -44,6 +45,7 @@ class DB
         $book = new Book;
 
         $book
+            ->setId($postData['sku'])
             ->setName($postData['name'])
             ->setProductType('Book')
             ->setPrice($postData['price'])
@@ -58,6 +60,7 @@ class DB
         $furniture = new Furniture;
 
         $furniture
+            ->setId($postData['sku'])
             ->setName($postData['name'])
             ->setProductType('Furniture')
             ->setPrice($postData['price'])
@@ -101,5 +104,10 @@ class DB
         $query = $queryBuilder->getQuery();
 
         $query->execute();
+    }
+
+    public function validateId(string $id)
+    {
+        return !$this->entityManager->getRepository(Products::class)->count(['id' => $id]);
     }
 }

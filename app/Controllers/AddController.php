@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\DB;
-use App\Pegination;
 use Valitron\Validator;
 use Twig\Environment as Twig;
 
@@ -16,7 +15,7 @@ class AddController extends AbstractIndexController
     public function __construct(
         private DB $db,
         private Twig $twig,
-        private HomeController $homeController
+        private HomeController $homeController,
     ) {
         parent::__construct($this->twig);
     }
@@ -39,12 +38,16 @@ class AddController extends AbstractIndexController
     {
         $v = new Validator($postData);
 
-        $v->rule('required', ['name', 'price', 'productType', 'size']);
+        $v->rule('required', ['sku', 'name', 'price', 'productType', 'size']);
         $v->rules([
-            'alphaNum'      => 'name',
+            'alphaNum'      => ['name', 'sku'],
             'numeric'       => 'price',
             'integer'       => 'size',
         ]);
+        $v->rule(
+            fn ($field, $value, $params, $fields) => $this->db->validateId($value),
+            'sku'
+        )->message('Product with the given SKU already exists');
 
         if (!$v->validate()) {
             $this->errors = $v->errors();
@@ -62,11 +65,15 @@ class AddController extends AbstractIndexController
     {
         $v = new Validator($postData);
 
-        $v->rule('required', ['name', 'price', 'productType', 'weight']);
+        $v->rule('required', ['sku', 'name', 'price', 'productType', 'weight']);
         $v->rules([
-            'alphaNum'      => 'name',
+            'alphaNum'      => ['name', 'sku'],
             'numeric'       => ['weight', 'price'],
         ]);
+        $v->rule(
+            fn ($field, $value, array $params, array $fields) => $this->db->validateId($value),
+            'sku'
+        )->message('Product with the given SKU already exists');
 
         if (!$v->validate()) {
             $this->errors = $v->errors();
@@ -84,14 +91,18 @@ class AddController extends AbstractIndexController
     {
         $v = new Validator($postData);
 
-        $v->rule('required', ['name', 'price', 'productType', 'height', 'width', 'length']);
+        $v->rule('required', ['sku', 'name', 'price', 'productType', 'height', 'width', 'length']);
         $v->rule('requiredWith', 'height', ['width', 'length']);
         $v->rule('requiredWith', 'width', ['height', 'length']);
         $v->rule('requiredWith', 'length', ['height', 'width']);
         $v->rules([
-            'alphaNum'      => 'name',
+            'alphaNum'      => ['name', 'sku'],
             'numeric'       => ['price', 'height', 'width', 'length']
         ]);
+        $v->rule(
+            fn ($field, $value, $params, $fields) => $this->db->validateId($value),
+            'sku'
+        )->message('Product with the given SKU already exists');
 
         if (!$v->validate()) {
             $this->errors = $v->errors();

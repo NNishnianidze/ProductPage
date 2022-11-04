@@ -6,7 +6,6 @@ $(document).ready(function() {
     }
 
     $("#productType").change(function() {
-        $('#sku').removeAttr('value');
         $('.options').removeAttr('name');
         $('.options').removeAttr('required');
 
@@ -17,7 +16,6 @@ $(document).ready(function() {
         }
 
         if ($('select').val() == 'DVD') {
-            $("#sku").attr('value', 'DVD');
             $("#size").attr('required', true);
             $("#size").attr('name', 'size');
             $('#dvd').show();
@@ -26,7 +24,6 @@ $(document).ready(function() {
         }
 
         if ($('select').val() == 'Book') {
-            $("#sku").attr('value', 'book');
             $("#weight").attr('required', true);
             $("#weight").attr('name', 'weight');
             $('#dvd').hide();
@@ -35,7 +32,6 @@ $(document).ready(function() {
         }
 
         if ($('select').val() == 'Furniture') {
-            $("#sku").attr('value', 'furniture');
             $(".furniture").attr('required', true);
             $('#dvd').hide();
             $('#book').hide();
