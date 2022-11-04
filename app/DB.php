@@ -90,7 +90,7 @@ class DB
         return $this->data;
     }
 
-    public function deleteProduct(int $id, string $productType)
+    public function deleteProduct(string $id, string $productType)
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
 
