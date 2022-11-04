@@ -53,6 +53,7 @@ class Router
         $action = $this->routes[$requestMethod][$route] ?? null;
 
         if (!$action) {
+            return $this->twig->render('404.php');
             throw new RouteNotFoundException();
         }
 
@@ -70,6 +71,7 @@ class Router
             }
         }
 
-        throw new RouteNotFoundException();
+        return $this->twig->render('404.php');
+        //throw new RouteNotFoundException();
     }
 }

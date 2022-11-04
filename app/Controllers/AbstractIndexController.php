@@ -22,12 +22,15 @@ abstract class AbstractIndexController
         $_SERVER['REQUEST_URI'];
         $uri = explode('/', $_SERVER['REQUEST_URI']);
         $uri = end($uri);
+        $uri = explode('?', $uri);
+        $uri = end($uri);
 
         $view = $uri . '.php';
         $viewPath = VIEW_PATH . '/' . $view;
 
         if (!file_exists($viewPath)) {
             throw new ViewNotFoundException();
+            return $this->twig->render('404.php');
         }
 
         $options['requestUri'] = $_SERVER['REQUEST_URI'];
