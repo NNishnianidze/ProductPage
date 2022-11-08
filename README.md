@@ -6,11 +6,11 @@
 # Using #
 ## Backend ##
 * PHP
-* MySql
-* Doctrine
+* MySQL
 
 ### Composer Packages ###
 * php/di - Container
+* doctrine - ORM/DBAL/Migrations
 * symfony/console - Custom Console
 * vlucas/valitron - Form Validation 
 
