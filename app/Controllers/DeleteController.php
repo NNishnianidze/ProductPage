@@ -23,6 +23,7 @@ class DeleteController
         }
 
         foreach ($_POST as $id => $productType) {
+            $id = (string) $id;
             $this->db->deleteProduct($id, $productType);
         }
 
