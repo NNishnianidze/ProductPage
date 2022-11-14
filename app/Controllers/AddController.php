@@ -15,12 +15,11 @@ class AddController extends AbstractIndexController
     public function __construct(
         private DB $db,
         private Twig $twig,
-        private HomeController $homeController,
     ) {
         parent::__construct($this->twig);
     }
 
-    public function addProduct(): string
+    public function addProduct()
     {
         $productType = $_POST['productType'];
         $function = 'validate' . $productType;
@@ -28,10 +27,13 @@ class AddController extends AbstractIndexController
         $validate = $this->$function($_POST, $productType);
 
         if (!$validate) {
-            return $this->twig->render('add.php', ['requestUri' => '/add', 'errors' => $this->errors]);
+            $_SESSION['errors'] = $this->errors;
+            header('Location: /add');
+            exit;
         }
 
-        return $this->homeController->renderIndex();
+        http_response_code(302);
+        header('Location: /');
     }
 
     public function validateDVD(array $postData, string $productType): bool

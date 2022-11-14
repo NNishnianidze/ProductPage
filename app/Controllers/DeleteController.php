@@ -12,14 +12,15 @@ class DeleteController
     public function __construct(
         private Twig $twig,
         private DB $db,
-        private HomeController $homeContoller,
     ) {
     }
 
-    public function deleteProducts(): string
+    public function deleteProducts()
     {
         if (empty($_POST)) {
-            return $this->homeContoller->renderIndex();
+            http_response_code(302);
+            header('Location: /');
+            exit();
         }
 
         foreach ($_POST as $id => $productType) {
@@ -27,6 +28,7 @@ class DeleteController
             $this->db->deleteProduct($id, $productType);
         }
 
-        return $this->homeContoller->renderIndex();
+        http_response_code(302);
+        header('Location: /');
     }
 }

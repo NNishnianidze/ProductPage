@@ -30,13 +30,9 @@ return [
     Twig::class                   => function (FilesystemLoader $loader) {
         $twig = new Twig($loader, ['cache' => STORAGE_PATH . '/cache/compilation_cache', 'auto_reload' => 1]);
 
-        //Add Twwig Extension
-        $twig->addExtension(new TwigParserExtension);
-
         return $twig;
     },
     App::class                    => function (Router $router) {
-
         $routes         = require CONFIG_PATH . '/routes/web.php';
         $routes($router);
 

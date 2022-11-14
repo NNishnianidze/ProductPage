@@ -14,6 +14,7 @@ class App
 
     public function run()
     {
+        session_start();
         echo $this->router->resolve($this->request['uri'], strtolower($this->request['method']));
     }
 }

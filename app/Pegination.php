@@ -13,7 +13,7 @@ class Pegination
 
     public function getProducts(int $pageNow): array
     {
-        // changes Number of Cards of Pordact list page
+        // changes Number of Cards on Home - Product list page
         $perPage = 20;
 
         $start = ($pageNow - 1) * $perPage;

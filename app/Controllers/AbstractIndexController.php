@@ -10,20 +10,17 @@ use Twig\Environment as Twig;
 abstract class AbstractIndexController
 {
     public function __construct(
-        private Twig $twig,
+        private Twig $twig
     ) {
     }
 
     public function renderIndex(): string
     {
-        if ($_SERVER['REQUEST_URI'] == '/') {
-            return $this->twig->render('index.php', ['requestUri' => $_SERVER['REQUEST_URI']]);
-        };
-        $_SERVER['REQUEST_URI'];
-        $uri = explode('/', $_SERVER['REQUEST_URI']);
-        $uri = end($uri);
-        $uri = explode('?', $uri);
-        $uri = end($uri);
+        if (isset($_SESSION['errors'])) {
+            $errors = $_SESSION['errors'];
+        }
+
+        $uri = explode('/', $_SERVER['REQUEST_URI'])[1];
 
         $view = $uri . '.php';
         $viewPath = VIEW_PATH . '/' . $view;
@@ -33,7 +30,11 @@ abstract class AbstractIndexController
             return $this->twig->render('404.php');
         }
 
-        $options['requestUri'] = $_SERVER['REQUEST_URI'];
+        if (!empty($errors)) {
+            unset($_SESSION['errors']);
+            session_destroy();
+            return $this->twig->render($view, ['requestUri' => $_SERVER['REQUEST_URI'], 'errors' => $errors]);
+        }
 
         return $this->twig->render($view, ['requestUri' => $_SERVER['REQUEST_URI']]);
     }
