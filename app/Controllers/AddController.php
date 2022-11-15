@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\DB;
+use App\Exceptions\ViewNotFoundException;
 use Valitron\Validator;
 use Twig\Environment as Twig;
 
-class AddController extends AbstractIndexController
+class AddController
 {
     private array $errors = [];
 
@@ -16,7 +17,21 @@ class AddController extends AbstractIndexController
         private DB $db,
         private Twig $twig,
     ) {
-        parent::__construct($this->twig);
+    }
+
+    public function renderIndex(): string
+    {
+        if (isset($_SESSION['errors'])) {
+            $errors = $_SESSION['errors'];
+        }
+
+        if (!empty($errors)) {
+            unset($_SESSION['errors']);
+            session_destroy();
+            return $this->twig->render('add.php', ['requestUri' => '/add', 'errors' => $errors]);
+        }
+
+        return $this->twig->render('add.php', ['requestUri' => '/add']);
     }
 
     public function addProduct()

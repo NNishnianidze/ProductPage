@@ -34,7 +34,7 @@
             </div>
         </div>
         {% else %}
-        <h1 class="card-title"><small class="text-muted fw-light">We will add Product Soon!</small></h1>
+        <h1 class="card-title"><small class="text-muted fw-light">Products have'n b been added yet</small></h1>
         {% endfor %}
 
     </div>

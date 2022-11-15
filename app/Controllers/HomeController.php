@@ -8,7 +8,7 @@ use App\DB;
 use App\Pegination;
 use Twig\Environment as Twig;
 
-class HomeController extends AbstractIndexController
+class HomeController
 {
     public function __construct(
         private Twig $twig,

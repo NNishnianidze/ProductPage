@@ -72,6 +72,5 @@ class Router
         }
 
         return $this->twig->render('404.php');
-        //throw new RouteNotFoundException();
     }
 }
